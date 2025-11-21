@@ -1,0 +1,29 @@
+[project]
+name = "nbphile"
+version = "0.1.0"
+description = "Eksperymenty z ciągami liczbowymi w Pythonie"
+authors = [
+    {name = "pmichon", email = "piotr.michon@gmail.com"},
+]
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+
+[project.urls]
+"Homepage" = "https://github.com/pmichon/nbphile"
+"Source" = "https://github.com/pmichon/nbphile"
+
+[project.scripts]
+fibonacci = "fibonacci:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*.py"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
+line_length = 100
