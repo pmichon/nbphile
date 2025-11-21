@@ -3,7 +3,7 @@ name = "nbphile"
 version = "0.1.0"
 description = "Eksperymenty z ciągami liczbowymi w Pythonie"
 authors = [
-    {name = "pmichon", email = "piotr.michon@gmail.com"},
+    {name = "pmichon", email = "piotr.michonski@gmail.com"},
 ]
 readme = "README.md"
 requires-python = ">=3.8"
