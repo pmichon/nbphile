@@ -15,6 +15,7 @@ license = {text = "MIT"}
 
 [project.scripts]
 fibonacci = "fibonacci:main"
+amicable = "amicable:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
