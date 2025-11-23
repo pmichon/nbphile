@@ -3,11 +3,7 @@ import argparse
 import csv
 import statistics
 
-# Global cache for Collatz sequences
-_cache = {}
-_cache_stats = {'hits': 0, 'misses': 0}
-
-def generate_collatz_sequence(n, use_cache=True):
+def generate_collatz_sequence(n):
     """
     Generuje ciąg Collatza dla zadanej liczby n.
     
@@ -18,44 +14,22 @@ def generate_collatz_sequence(n, use_cache=True):
     
     Args:
         n: Liczba początkowa
-        use_cache: Czy użyć cache (domyślnie True)
     
     Zwraca krotkę: (sekwencja, długość, maksymalna wartość)
     """
     if n <= 0:
         raise ValueError("Liczba musi być większa od 0")
     
-    # Sprawdź czy wynik jest w cache
-    if use_cache and n in _cache:
-        _cache_stats['hits'] += 1
-        return _cache[n]
-    
-    _cache_stats['misses'] += 1
-    
     sequence = [n]
-    original_n = n
     
     while n != 1:
         if n % 2 == 0:
             n = n // 2
         else:
             n = 3 * n + 1
-        
-        # Jeśli napotkaliśmy liczbę w cache, użyj jej
-        if use_cache and n in _cache:
-            cached_seq, _, _ = _cache[n]
-            sequence.extend(cached_seq)
-            break
-        else:
-            sequence.append(n)
+        sequence.append(n)
     
-    result = (sequence, len(sequence), max(sequence))
-    
-    # Zapisz w cache
-    if use_cache:
-        _cache[original_n] = result
-    
-    return result
+    return sequence, len(sequence), max(sequence)
 
 def calculate_sequence_stats(sequence):
     """
@@ -102,10 +76,6 @@ def main():
                        help='Zapisz sekwencje do pliku CSV')
     parser.add_argument('--verbose', '-v', action='store_true', 
                        help='Pokaż pełną sekwencję')
-    parser.add_argument('--cache-stats', action='store_true',
-                       help='Pokaż statystyki cache')
-    parser.add_argument('--no-cache', action='store_true',
-                       help='Wyłącz cache (dla testów)')
     parser.add_argument('--stats-only', action='store_true',
                        help='Pokaż tylko statystyki sekwencji')
     args = parser.parse_args()
@@ -116,8 +86,6 @@ def main():
     
     if args.range and args.n:
         parser.error("Nie możesz używać jednocześnie liczby i --range")
-
-    use_cache = not args.no_cache
     
     # Tryb zakresu
     if args.range:
@@ -138,7 +106,7 @@ def main():
         show_progress = args.csv and total_count > 1
         
         for i, n in enumerate(range(start, end + 1), 1):
-            seq, length, max_val = generate_collatz_sequence(n, use_cache=use_cache)
+            seq, length, max_val = generate_collatz_sequence(n)
             sequences.append((n, seq, length, max_val))
             total_length += length
             if length > max_length:
@@ -168,12 +136,6 @@ def main():
             print(f"  Średnia długość: {total_length / len(sequences):.2f}")
             print(f"  Najdłuższa sekwencja: {max_length} (dla n={max_length_n})")
             
-            if args.cache_stats:
-                print(f"  Cache statystyki:")
-                print(f"    Trafienia: {_cache_stats['hits']}")
-                print(f"    Chybienia: {_cache_stats['misses']}")
-                print(f"    Rozmiar cache: {len(_cache)}")
-            
             if args.verbose:
                 print(f"\nSzczegóły sekwencji:")
                 for n, seq, length, max_val in sequences:
@@ -186,7 +148,7 @@ def main():
             print("Błąd: Liczba musi być większa od 0")
             return
 
-        sequence, length, max_value = generate_collatz_sequence(args.n, use_cache=use_cache)
+        sequence, length, max_value = generate_collatz_sequence(args.n)
         
         # Zapis do CSV jeśli podano
         if args.csv:
@@ -199,12 +161,6 @@ def main():
             print(f"Ciąg Collatza dla liczby {args.n}:")
             print(f"  Długość sekwencji: {length}")
             print(f"  Maksymalna wartość: {max_value}")
-            
-            if args.cache_stats:
-                print(f"  Cache statystyki:")
-                print(f"    Trafienia: {_cache_stats['hits']}")
-                print(f"    Chybienia: {_cache_stats['misses']}")
-                print(f"    Rozmiar cache: {len(_cache)}")
             
             if args.verbose:
                 print(f"  Pełna sekwencja:")

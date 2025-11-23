@@ -79,12 +79,6 @@ python3 collatz.py 13
 # Tryb verbose - pełna sekwencja
 python3 collatz.py 27 --verbose
 
-# Statystyki cache
-python3 collatz.py 27 --cache-stats
-
-# Wyłącz cache (dla testów)
-python3 collatz.py 27 --no-cache
-
 # Generuj sekwencje dla zakresu liczb
 python3 collatz.py --range 10 15
 
@@ -120,9 +114,8 @@ Wygenerowano sekwencje dla zakresu [10, 15]:
 n=27: first: 27, len: 112, max: 9232, mean: 905.71, median: 357.00, stdev: 1491.24
 ```
 
-**Cache:** Skrypt automatycznie cache'uje obliczone sekwencje, aby przyspieszyć kolejne obliczenia dla liczb o wspólnych podsekwencjach.
-
 **Format CSV:** Każda linia w pliku CSV zawiera jedną sekwencję jako wartości oddzielone przecinkami.
+
 
 ## 🤝 Współpraca
 
