@@ -15,6 +15,7 @@ Repozytorium `nbphile` (Number Phile) służy do eksperymentowania z różnymi c
 Obecnie projekt oferuje:
 - 🔢 **Generator ciągu Fibonacciego** - prosty skrypt do generowania n pierwszych wyrazów ciągu.
 - 🤝 **Sprawdzanie liczb zaprzyjaźnionych** - skrypt weryfikujący czy dwie liczby są liczbami zaprzyjaźnionymi.
+- 🔄 **Ciąg Collatza (hipoteza 3n+1)** - generator ciągu Collatza z wizualizacją długości i maksymalnej wartości.
 
 W przyszłości planowane są kolejne eksperymenty z ciągami liczbowymi.
 
@@ -62,6 +63,29 @@ python3 amicable.py 220 284
 TAK: Liczby 220 i 284 są zaprzyjaźnione.
 Suma dzielników 220: 284
 Suma dzielników 284: 220
+```
+
+### 3. Generator Ciągu Collatza (`collatz.py`)
+
+Generuje ciąg Collatza (hipoteza 3n+1) dla zadanej liczby. Ciąg powstaje według zasad:
+- Jeśli n parzyste: n/2
+- Jeśli n nieparzyste: 3n+1
+- Kontynuuj aż dojdziesz do 1
+
+```bash
+# Podstawowe użycie
+python3 collatz.py 13
+
+# Tryb verbose - pełna sekwencja
+python3 collatz.py 27 --verbose
+```
+
+**Wynik:**
+```
+Ciąg Collatza dla liczby 13:
+  Długość sekwencji: 10
+  Maksymalna wartość: 40
+  Sekwencja: 13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
 ```
 
 ## 🤝 Współpraca
