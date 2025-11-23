@@ -78,6 +78,12 @@ python3 collatz.py 13
 
 # Tryb verbose - pełna sekwencja
 python3 collatz.py 27 --verbose
+
+# Statystyki cache
+python3 collatz.py 27 --cache-stats
+
+# Wyłącz cache (dla testów)
+python3 collatz.py 27 --no-cache
 ```
 
 **Wynik:**
@@ -87,6 +93,8 @@ Ciąg Collatza dla liczby 13:
   Maksymalna wartość: 40
   Sekwencja: 13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
 ```
+
+**Cache:** Skrypt automatycznie cache'uje obliczone sekwencje, aby przyspieszyć kolejne obliczenia dla liczb o wspólnych podsekwencjach.
 
 ## 🤝 Współpraca
 
