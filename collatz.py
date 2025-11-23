@@ -112,13 +112,24 @@ def main():
         max_length = 0
         max_length_n = 0
         
-        for n in range(start, end + 1):
+        total_count = end - start + 1
+        show_progress = args.csv and total_count > 1
+        
+        for i, n in enumerate(range(start, end + 1), 1):
             seq, length, max_val = generate_collatz_sequence(n, use_cache=use_cache)
             sequences.append((n, seq, length, max_val))
             total_length += length
             if length > max_length:
                 max_length = length
                 max_length_n = n
+            
+            # Pokazuj postęp dla CSV z wieloma sekwencjami
+            if show_progress:
+                percent = (i / total_count) * 100
+                print(f"\rGenerowanie sekwencji: {i}/{total_count} ({percent:.1f}%)", end='', flush=True)
+        
+        if show_progress:
+            print()  # Nowa linia po zakończeniu
         
         # Zapis do CSV jeśli podano
         if args.csv:
