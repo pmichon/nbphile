@@ -84,6 +84,15 @@ python3 collatz.py 27 --cache-stats
 
 # Wyłącz cache (dla testów)
 python3 collatz.py 27 --no-cache
+
+# Generuj sekwencje dla zakresu liczb
+python3 collatz.py --range 10 15
+
+# Eksport do CSV (jedna sekwencja)
+python3 collatz.py 13 --csv sekwencja.csv
+
+# Eksport zakresu do CSV (wiele sekwencji, każda w nowej linii)
+python3 collatz.py --range 5 20 --csv sekwencje.csv
 ```
 
 **Wynik:**
@@ -94,7 +103,17 @@ Ciąg Collatza dla liczby 13:
   Sekwencja: 13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1
 ```
 
+**Wynik dla zakresu:**
+```
+Wygenerowano sekwencje dla zakresu [10, 15]:
+  Liczba sekwencji: 6
+  Średnia długość: 13.00
+  Najdłuższa sekwencja: 18 (dla n=14)
+```
+
 **Cache:** Skrypt automatycznie cache'uje obliczone sekwencje, aby przyspieszyć kolejne obliczenia dla liczb o wspólnych podsekwencjach.
+
+**Format CSV:** Każda linia w pliku CSV zawiera jedną sekwencję jako wartości oddzielone przecinkami.
 
 ## 🤝 Współpraca
 
