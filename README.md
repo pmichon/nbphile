@@ -88,6 +88,10 @@ python3 collatz.py 27 --no-cache
 # Generuj sekwencje dla zakresu liczb
 python3 collatz.py --range 10 15
 
+# Tylko statystyki (bez pełnej sekwencji)
+python3 collatz.py 27 --stats-only
+python3 collatz.py --range 10 13 --stats-only
+
 # Eksport do CSV (jedna sekwencja)
 python3 collatz.py 13 --csv sekwencja.csv
 
@@ -109,6 +113,17 @@ Wygenerowano sekwencje dla zakresu [10, 15]:
   Liczba sekwencji: 6
   Średnia długość: 13.00
   Najdłuższa sekwencja: 18 (dla n=14)
+```
+
+**Wynik dla --stats-only:**
+```
+Statystyki sekwencji dla n=27:
+  Pierwszy wyraz: 27
+  Długość: 112
+  Największa liczba: 9232
+  Średnia: 905.71
+  Mediana: 357.00
+  Odchylenie standardowe: 1491.24
 ```
 
 **Cache:** Skrypt automatycznie cache'uje obliczone sekwencje, aby przyspieszyć kolejne obliczenia dla liczb o wspólnych podsekwencjach.

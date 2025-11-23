@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import csv
+import statistics
 
 # Global cache for Collatz sequences
 _cache = {}
@@ -56,6 +57,25 @@ def generate_collatz_sequence(n, use_cache=True):
     
     return result
 
+def calculate_sequence_stats(sequence):
+    """
+    Oblicza statystyki dla sekwencji Collatza.
+    
+    Args:
+        sequence: Lista liczb w sekwencji
+    
+    Returns:
+        Dict ze statystykami: mean, median, stdev, max, length, first
+    """
+    return {
+        'first': sequence[0],
+        'length': len(sequence),
+        'max': max(sequence),
+        'mean': statistics.mean(sequence),
+        'median': statistics.median(sequence),
+        'stdev': statistics.stdev(sequence) if len(sequence) > 1 else 0.0
+    }
+
 def save_sequences_to_csv(sequences, filename):
     """
     Zapisuje sekwencje do pliku CSV.
@@ -86,6 +106,8 @@ def main():
                        help='Pokaż statystyki cache')
     parser.add_argument('--no-cache', action='store_true',
                        help='Wyłącz cache (dla testów)')
+    parser.add_argument('--stats-only', action='store_true',
+                       help='Pokaż tylko statystyki sekwencji')
     args = parser.parse_args()
 
     # Walidacja argumentów
@@ -134,6 +156,19 @@ def main():
         # Zapis do CSV jeśli podano
         if args.csv:
             save_sequences_to_csv(sequences, args.csv)
+        elif args.stats_only:
+            # Tryb stats-only dla zakresu
+            print(f"Statystyki sekwencji dla zakresu [{start}, {end}]:\n")
+            for n, seq, length, max_val in sequences:
+                stats = calculate_sequence_stats(seq)
+                print(f"n={n}:")
+                print(f"  Pierwszy wyraz: {stats['first']}")
+                print(f"  Długość: {stats['length']}")
+                print(f"  Największa liczba: {stats['max']}")
+                print(f"  Średnia: {stats['mean']:.2f}")
+                print(f"  Mediana: {stats['median']:.2f}")
+                print(f"  Odchylenie standardowe: {stats['stdev']:.2f}")
+                print()
         else:
             # Wyświetl podsumowanie
             print(f"Wygenerowano sekwencje dla zakresu [{start}, {end}]:")
@@ -164,6 +199,16 @@ def main():
         # Zapis do CSV jeśli podano
         if args.csv:
             save_sequences_to_csv([(args.n, sequence, length, max_value)], args.csv)
+        elif args.stats_only:
+            # Tryb stats-only dla pojedynczej liczby
+            stats = calculate_sequence_stats(sequence)
+            print(f"Statystyki sekwencji dla n={args.n}:")
+            print(f"  Pierwszy wyraz: {stats['first']}")
+            print(f"  Długość: {stats['length']}")
+            print(f"  Największa liczba: {stats['max']}")
+            print(f"  Średnia: {stats['mean']:.2f}")
+            print(f"  Mediana: {stats['median']:.2f}")
+            print(f"  Odchylenie standardowe: {stats['stdev']:.2f}")
         else:
             print(f"Ciąg Collatza dla liczby {args.n}:")
             print(f"  Długość sekwencji: {length}")
