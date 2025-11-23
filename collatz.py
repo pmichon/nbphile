@@ -157,18 +157,10 @@ def main():
         if args.csv:
             save_sequences_to_csv(sequences, args.csv)
         elif args.stats_only:
-            # Tryb stats-only dla zakresu
-            print(f"Statystyki sekwencji dla zakresu [{start}, {end}]:\n")
+            # Tryb stats-only dla zakresu - jedna linia na sekwencję
             for n, seq, length, max_val in sequences:
                 stats = calculate_sequence_stats(seq)
-                print(f"n={n}:")
-                print(f"  Pierwszy wyraz: {stats['first']}")
-                print(f"  Długość: {stats['length']}")
-                print(f"  Największa liczba: {stats['max']}")
-                print(f"  Średnia: {stats['mean']:.2f}")
-                print(f"  Mediana: {stats['median']:.2f}")
-                print(f"  Odchylenie standardowe: {stats['stdev']:.2f}")
-                print()
+                print(f"n={n}: first: {stats['first']}, len: {stats['length']}, max: {stats['max']}, mean: {stats['mean']:.2f}, median: {stats['median']:.2f}, stdev: {stats['stdev']:.2f}")
         else:
             # Wyświetl podsumowanie
             print(f"Wygenerowano sekwencje dla zakresu [{start}, {end}]:")
@@ -200,15 +192,9 @@ def main():
         if args.csv:
             save_sequences_to_csv([(args.n, sequence, length, max_value)], args.csv)
         elif args.stats_only:
-            # Tryb stats-only dla pojedynczej liczby
+            # Tryb stats-only dla pojedynczej liczby - jedna linia
             stats = calculate_sequence_stats(sequence)
-            print(f"Statystyki sekwencji dla n={args.n}:")
-            print(f"  Pierwszy wyraz: {stats['first']}")
-            print(f"  Długość: {stats['length']}")
-            print(f"  Największa liczba: {stats['max']}")
-            print(f"  Średnia: {stats['mean']:.2f}")
-            print(f"  Mediana: {stats['median']:.2f}")
-            print(f"  Odchylenie standardowe: {stats['stdev']:.2f}")
+            print(f"n={args.n}: first: {stats['first']}, len: {stats['length']}, max: {stats['max']}, mean: {stats['mean']:.2f}, median: {stats['median']:.2f}, stdev: {stats['stdev']:.2f}")
         else:
             print(f"Ciąg Collatza dla liczby {args.n}:")
             print(f"  Długość sekwencji: {length}")

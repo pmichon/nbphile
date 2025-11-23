@@ -117,13 +117,7 @@ Wygenerowano sekwencje dla zakresu [10, 15]:
 
 **Wynik dla --stats-only:**
 ```
-Statystyki sekwencji dla n=27:
-  Pierwszy wyraz: 27
-  Długość: 112
-  Największa liczba: 9232
-  Średnia: 905.71
-  Mediana: 357.00
-  Odchylenie standardowe: 1491.24
+n=27: first: 27, len: 112, max: 9232, mean: 905.71, median: 357.00, stdev: 1491.24
 ```
 
 **Cache:** Skrypt automatycznie cache'uje obliczone sekwencje, aby przyspieszyć kolejne obliczenia dla liczb o wspólnych podsekwencjach.
